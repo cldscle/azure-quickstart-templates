@@ -1,0 +1,56 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "userPrincipalId": {
+          "type": "String",
+          "metadata": {
+              "description": "principalId of the user that will be given access to the subscription"
+          }
+      },
+      "appPrincipalId": {
+          "type": "String",
+          "metadata": {
+              "description": "principalId of the app registration that will be given access to the subscription"
+          }
+      }
+  },
+  "resources": [
+      {
+          "type": "Microsoft.Authorization/roleAssignments",
+          "apiVersion": "2020-08-01-preview",
+          "name": "[guid(subscription().id, parameters('userPrincipalId'), 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]",
+          "properties": {
+              "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]",
+              "principalId": "[parameters('userPrincipalId')]"
+          }
+      },
+      {
+          "type": "Microsoft.Authorization/roleAssignments",
+          "apiVersion": "2020-08-01-preview",
+          "name": "[guid(subscription().id, parameters('userPrincipalId'), '39bc4728-0917-49c7-9d2c-d95423bc2eb4')]",
+          "properties": {
+              "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '39bc4728-0917-49c7-9d2c-d95423bc2eb4')]",
+              "principalId": "[parameters('userPrincipalId')]"
+          }
+      },
+      {
+          "type": "Microsoft.Authorization/roleAssignments",
+          "apiVersion": "2020-08-01-preview",
+          "name": "[guid(subscription().id, parameters('appPrincipalId'), '39bc4728-0917-49c7-9d2c-d95423bc2eb4')]",
+          "properties": {
+              "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '39bc4728-0917-49c7-9d2c-d95423bc2eb4')]",
+              "principalId": "[parameters('appPrincipalId')]"
+          }
+      },
+      {
+          "type": "Microsoft.Authorization/roleAssignments",
+          "apiVersion": "2020-08-01-preview",
+          "name": "[guid(subscription().id, parameters('appPrincipalId'), '73c42c96-874c-492b-b04d-ab87d138a893')]",
+          "properties": {
+              "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '73c42c96-874c-492b-b04d-ab87d138a893')]",
+              "principalId": "[parameters('appPrincipalId')]"
+          }
+      }
+  ]
+}
